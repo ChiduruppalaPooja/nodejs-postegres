@@ -1,9 +1,28 @@
-const express = require('express')
 
-const app =express()
+const express = require('express');
+const bodyParser = require('body-parser');
+const db = require('./dbconfig');
+const routesCourse = require('./routers/routes')
+const Course = require('./models/course');
 
-const port = process.env.port || 5000
+const app = express();
+const port = process.env.PORT || 5000;
 
-app.listen(port, ()=>{
-    console.log("Server is up and running");
-})
+app.use(bodyParser.json());
+app.use('/admin',routesCourse);
+
+// Synchronize models with the database
+db.sync()
+    .then(() => {
+        console.log('Database synced');
+        app.listen(port, () => {
+            console.log(`Server is up and running on port ${port}`);
+        });
+    })
+    .catch(err => {
+        console.error('Error syncing database', err);
+    });
+
+
+
+

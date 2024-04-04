@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npm-run-all --parallel start-server start-database",
-    "start-server": "node server.js",
-    "start-database": "node dbconfig.js"
+    "start-server": "nodemon server.js",
+    "start-database": "nodemon dbconfig.js"
   },
   "author": "pooja",
   "license": "ISC",
